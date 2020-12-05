@@ -8,7 +8,8 @@ import Register from './screens/Register';
 export default function App() {
 
   /*return  <Login />;*/
-  return <Register/>
+  /*return <Register/>*/
+  return <Oyun/>
 };
 
 const styles = StyleSheet.create({

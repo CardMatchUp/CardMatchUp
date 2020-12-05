@@ -98,12 +98,22 @@ export default class Oyun extends React.Component {
           }
           
         </View>
-        <Score score={this.state.score} />
+        
+          <Score score={this.state.score} />
+        
+        
+        
+        <View style={{backgroundColor:'#669999'}}>
         <Button
           onPress={this.sifirla}
           title="Sifirla"
-          color= 'gray'
+          color= 'black'
         />
+
+        </View>
+       
+      
+        
         
       </View>
       
@@ -228,7 +238,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: 'pink'
+    backgroundColor: '#00aaff'
   },
   row: {
     flex: 1,
