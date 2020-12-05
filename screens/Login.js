@@ -43,26 +43,24 @@ export default class Login extends React.Component { //App
         <View style={styles.inputView} >
           <TextInput  
             style={styles.inputText}
-            placeholder="Email..." 
-            placeholderTextColor="#003f5c"
+            placeholder="Enter Your Email..." 
+            placeholderTextColor="white"
             onChangeText={text => this.setState({email:text})}/>
         </View>
         <View style={styles.inputView} >
           <TextInput  
             secureTextEntry
             style={styles.inputText}
-            placeholder="Password..." 
-            placeholderTextColor="#003f5c"
+            placeholder="Enter Your Password..." 
+            placeholderTextColor="white" //#003f5c
             onChangeText={text => this.setState({password:text})}/>
         </View>
-        <TouchableOpacity >
-          <Text  style={styles.forgot}>Şifremi Unuttum?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.Login(this.state.email, this.state.password)} style={styles.loginBtn}>
-          <Text style={styles.loginText}>Giriş Yap</Text>
+
+        <TouchableOpacity style={styles.loginBtn}>
+          <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.loginText}>Kayıt Ol</Text>
+          <Text style={styles.loginText}>Sign Up</Text>
         </TouchableOpacity>
 
         <FlashMessage position="bottom" />
@@ -96,10 +94,6 @@ const styles = StyleSheet.create({
   inputText:{
     height:50,
     color:"white"
-  },
-  forgot:{
-    color:"white",
-    fontSize:11
   },
   loginBtn:{
     width:"80%",
