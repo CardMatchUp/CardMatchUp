@@ -1,11 +1,41 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import firebase from '../firebase'
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
+
 
 export default class Login extends React.Component { //App
+  constructor(){
+    super();
+  }
   state={
     email:"",
     password:""
   }
+  Login = (email, password) => {
+    try {
+      firebase
+         .auth()
+         .signInWithEmailAndPassword(email, password)
+         .then(showMessage({
+          message: "Başarılı",
+          description: "Giriş Yapılıyor.",
+          type: "success",
+        })
+         ).catch(error=>{
+          showMessage({
+            message: "Uyarı",
+            description: "Girdiğiniz Bİlgiler Hatalı.",
+            type: "info",
+          });
+         });
+} catch (error) {
+      //console.log(error.toString(error));
+      
+    }
+  };
+
   render(){
     return (
       <View style={styles.container}>
@@ -25,17 +55,17 @@ export default class Login extends React.Component { //App
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
         </View>
-        <TouchableOpacity>
-          <Text style={styles.forgot}>Şifremi Unuttum?</Text>
+        <TouchableOpacity >
+          <Text  style={styles.forgot}>Şifremi Unuttum?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity onPress={() => this.Login(this.state.email, this.state.password)} style={styles.loginBtn}>
           <Text style={styles.loginText}>Giriş Yap</Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.loginText}>Kayıt Ol</Text>
         </TouchableOpacity>
 
-  
+        <FlashMessage position="bottom" />
       </View>
     );
   }
