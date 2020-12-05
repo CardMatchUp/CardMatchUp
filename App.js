@@ -6,7 +6,7 @@ import Login from "./screens/Login"
 export default function App() {
   return ( <Login />
     /*<View style={styles.container}>
-      <Text>fdgdfgdfg</Text>
+      <Text>fdgdfgdasdasdasdsadasfg1111111111</Text>
       <StatusBar style="auto" />
     </View>*/
   );
