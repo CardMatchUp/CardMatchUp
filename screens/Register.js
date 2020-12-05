@@ -1,12 +1,47 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import firebase from '../firebase'
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 export default class Register extends React.Component { //App
+
+  constructor(){
+    super();
+  }
+
   state={
     name:"",
     email:"",
     password:""
   }
+
+
+  Register = (email, password) => {
+    try {
+      firebase
+         .auth()
+         .createUserWithEmailAndPassword(email, password)
+         .then(()=>showMessage({
+          message: "Başarılı",
+          description: "Kayıt Yapılıyor.",
+          type: "success",
+        })
+         ).catch(error=>{
+          showMessage({
+            message: "Uyarı",
+            description: "Girdiğiniz Bİlgiler Hatalı.",
+            type: "info",
+          });
+         });
+} catch (error) {
+      //console.log(error.toString(error));
+      
+    }
+  };
+
+
+
   render(){
     return (
       <View style={styles.container}>
@@ -37,9 +72,10 @@ export default class Register extends React.Component { //App
             onChangeText={text => this.setState({password:text})}/>
         </View>
 
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity onPress={() => this.Register(this.state.email, this.state.password)} style={styles.loginBtn}>
           <Text style={styles.registerText}>Register</Text>
         </TouchableOpacity>
+        <FlashMessage position="bottom" />
 
       </View>
     );

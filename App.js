@@ -3,11 +3,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from "./screens/Login";
 import Oyun from "./screens/Oyun";
+import Register from './screens/Register';
 
 export default function App() {
 
   /*return  <Login />;*/
-  return <Oyun/>
+  return <Register/>
 };
 
 const styles = StyleSheet.create({

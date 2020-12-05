@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import firebase from '../Firebase'
+import firebase from '../firebase'
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
 
@@ -18,7 +18,7 @@ export default class Login extends React.Component { //App
       firebase
          .auth()
          .signInWithEmailAndPassword(email, password)
-         .then(showMessage({
+         .then(()=>showMessage({
           message: "Başarılı",
           description: "Giriş Yapılıyor.",
           type: "success",
@@ -56,7 +56,7 @@ export default class Login extends React.Component { //App
             onChangeText={text => this.setState({password:text})}/>
         </View>
 
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity onPress={() => this.Login(this.state.email, this.state.password)} style={styles.loginBtn}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity>
