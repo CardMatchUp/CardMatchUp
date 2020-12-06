@@ -16,17 +16,18 @@ export default class Login extends React.Component { //App
   }
   
   Login = (email, password) => {
+
     try {
       firebase
          .auth()
          .signInWithEmailAndPassword(email, password)
          .then(data=>{
-          console.log("User ID :- ", data.user.uid),
           showMessage({
           message: "Başarılı",
           description: "Giriş Yapılıyor.",
           type: "success",
         }),
+
         this.props.navigation.navigate('Oyun',data.user.uid)
       }
          ).catch(error=>{
@@ -36,6 +37,7 @@ export default class Login extends React.Component { //App
             type: "info",
           });
          });
+
 } catch (error) {
       //console.log(error.toString(error));
       

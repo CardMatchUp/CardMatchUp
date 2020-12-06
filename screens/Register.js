@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import firebase from '../Firebase';
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
-
 export default class Register extends React.Component { //App
 
   constructor(){
@@ -19,6 +18,9 @@ export default class Register extends React.Component { //App
 
   Register = (email, password) => {
     try {
+
+
+      
       firebase
          .auth()
          .createUserWithEmailAndPassword(email, password)
@@ -28,6 +30,16 @@ export default class Register extends React.Component { //App
           description: "Kayıt Yapılıyor.",
           type: "success",
         }),
+
+        firebase
+  .firestore()
+  .collection("Users")
+  .doc(data.user.uid)
+  .set({
+    name: this.state.name,
+    value:0,
+  })
+  .then((ref) => { console.log(ref) });
         this.props.navigation.navigate('Oyun',data.user.uid)
         
       }
@@ -38,6 +50,9 @@ export default class Register extends React.Component { //App
             type: "info",
           });
          });
+
+
+        
 } catch (error) {
       //console.log(error.toString(error));
       
