@@ -3,6 +3,7 @@ import { StyleSheet, View, Button, Image, Text } from 'react-native';
 
 import Score from '../components/Score';
 import Card from '../components/Card';
+import firebase from '../Firebase';
 
 
 
@@ -82,20 +83,40 @@ export default class Oyun extends React.Component {
       secimler: [],
       ciftler: [],
       score: 0,
-      cards: this.cards
+      cards: this.cards,
+      userName:"",
+      lastScore:-1
     }
   }
 
 componentDidMount(){
-  console.log("PROPSSS", this.props.navigation.state.params)
+  firebase.firestore().collection("Users").doc(this.props.navigation.state.params)
+    .get()
+  .then(querySnapshot => {
+    this.setState({
+      userName:querySnapshot.data().name,
+      lastScore:querySnapshot.data().lastscore
+    })
+  });
 }
+
+IsGameEnd(score)
+{
+  firebase.firestore().collection('Users').doc(this.props.navigation.state.params)
+  .update({
+    lastscore:score
+   })
+   this.componentDidMount();
+}
+
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
 				  <Text style={styles.header_text}>CardMatchGame</Text>
-          <Text style={styles.header_text}>kullanici adi</Text>
+          <Text style={styles.header_text}>{this.state.userName}</Text>
+          <Text style={styles.header_text}>Son Skor: {this.state.lastScore}</Text>
 		  	</View>
         <View style={styles.body}>
           { 
@@ -211,6 +232,10 @@ componentDidMount(){
         if(secimler[0].name == secimler[1].name){
           score += 10;
           ciftler.push(cards[index].name);
+
+          ciftler.length == 12? (this.IsGameEnd(score)):("");
+
+
         }else{
 
           score -=1;

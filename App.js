@@ -38,7 +38,7 @@ const AppNavigator = createStackNavigator({
 },
 
 {
-  initialRouteName: 'Oyun',
+  initialRouteName: 'Login',
 });
 
 export default createAppContainer(AppNavigator);

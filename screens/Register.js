@@ -39,7 +39,7 @@ export default class Register extends React.Component { //App
     name: this.state.name,
     value:0,
   })
-  .then((ref) => { console.log(ref) });
+  .then((ref) => {  });
         this.props.navigation.navigate('Oyun',data.user.uid)
         
       }
