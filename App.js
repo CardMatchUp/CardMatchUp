@@ -4,12 +4,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import Login from "./screens/Login";
 import Oyun from "./screens/Oyun";
 import Register from './screens/Register';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-export default function App() {
+export function App() {
 
   /*return  <Login />;*/
   /*return <Register/>*/
-  return <Oyun/>
+  return <Login/>
 };
 
 const styles = StyleSheet.create({
@@ -20,3 +22,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const AppNavigator = createStackNavigator({
+  Register: {
+  screen: Register,
+  },
+
+  Login: {
+  screen: Login,
+  },
+  
+  Oyun: {
+  screen: Oyun,
+  },
+},
+
+{
+  initialRouteName: 'Login',
+});
+
+export default createAppContainer(AppNavigator);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import firebase from '../Firebase'
+import firebase from '../Firebase';
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
 
@@ -60,7 +60,9 @@ export default class Login extends React.Component { //App
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.loginText}>Sign Up</Text>
+          <Text style={styles.loginText} onPress={() => this.props.navigation.navigate('Register')}>
+            Sign Up
+          </Text>
         </TouchableOpacity>
 
         <FlashMessage position="bottom" />
