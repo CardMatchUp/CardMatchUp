@@ -90,6 +90,7 @@ export default class Oyun extends React.Component {
   }
 
 componentDidMount(){
+  this.props.navigation.navigate('HighScore');
   firebase.firestore().collection("Users").doc(this.props.navigation.state.params)
     .get()
   .then(querySnapshot => {

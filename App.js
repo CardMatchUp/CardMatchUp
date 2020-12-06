@@ -43,7 +43,7 @@ const AppNavigator = createStackNavigator({
 },
 
 {
-  initialRouteName: 'HighScore',
+  initialRouteName: 'Login',
 });
 
 export default createAppContainer(AppNavigator);
