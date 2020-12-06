@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import firebase from '../Firebase'
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
+import iid from '@react-native-firebase/iid';
 
 
 export default class Login extends React.Component { //App
@@ -13,16 +14,19 @@ export default class Login extends React.Component { //App
     email:"",
     password:""
   }
+  
   Login = (email, password) => {
     try {
       firebase
          .auth()
          .signInWithEmailAndPassword(email, password)
-         .then(()=>showMessage({
+         .then(data=>{
+          console.log("User ID :- ", data.user.uid),
+          showMessage({
           message: "Başarılı",
           description: "Giriş Yapılıyor.",
           type: "success",
-        })
+        })}
          ).catch(error=>{
           showMessage({
             message: "Uyarı",
@@ -34,6 +38,11 @@ export default class Login extends React.Component { //App
       //console.log(error.toString(error));
       
     }
+    async function getInstanceId() {
+      const id = await iid().get();
+      console.log('Current Instance ID: ', id);
+    }
+
   };
 
   render(){

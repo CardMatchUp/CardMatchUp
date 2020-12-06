@@ -9,7 +9,7 @@ export default function App() {
 
   /*return  <Login />;*/
   /*return <Register/>*/
-  return <Oyun/>
+  return <Register/>
 };
 
 const styles = StyleSheet.create({
