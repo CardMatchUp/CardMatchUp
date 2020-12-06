@@ -10,8 +10,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 export function App() {
 
   /*return  <Login />;*/
-  /*return <Oyun/>*/
-  return <Login/>
+  return <Oyun/>
+  
 };
 
 const styles = StyleSheet.create({
@@ -38,7 +38,7 @@ const AppNavigator = createStackNavigator({
 },
 
 {
-  initialRouteName: 'Login',
+  initialRouteName: 'Oyun',
 });
 
 export default createAppContainer(AppNavigator);
