@@ -22,11 +22,15 @@ export default class Register extends React.Component { //App
       firebase
          .auth()
          .createUserWithEmailAndPassword(email, password)
-         .then(()=>showMessage({
+         .then(data => {
+           ()=>showMessage({
           message: "Başarılı",
           description: "Kayıt Yapılıyor.",
           type: "success",
-        })
+        }),
+        this.props.navigation.navigate('Oyun',data.user.uid)
+        
+      }
          ).catch(error=>{
           showMessage({
             message: "Uyarı",

@@ -86,6 +86,10 @@ export default class Oyun extends React.Component {
     }
   }
 
+componentDidMount(){
+  console.log("PROPSSS", this.props.navigation.state.params)
+}
+
   render() {
     return (
       <View style={styles.container}>

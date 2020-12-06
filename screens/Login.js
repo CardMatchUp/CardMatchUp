@@ -26,7 +26,9 @@ export default class Login extends React.Component { //App
           message: "Başarılı",
           description: "Giriş Yapılıyor.",
           type: "success",
-        })}
+        }),
+        this.props.navigation.navigate('Oyun',data.user.uid)
+      }
          ).catch(error=>{
           showMessage({
             message: "Uyarı",
@@ -37,10 +39,6 @@ export default class Login extends React.Component { //App
 } catch (error) {
       //console.log(error.toString(error));
       
-    }
-    async function getInstanceId() {
-      const id = await iid().get();
-      console.log('Current Instance ID: ', id);
     }
 
   };
