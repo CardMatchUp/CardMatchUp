@@ -29,40 +29,40 @@ export default class Oyun extends React.Component {
 
     let cards = [
       {
-        name: '#0099cc',
+        name: 'https://i.hizliresim.com/xDFWpt.png',
       },
       {
-        name: '#66ffcc',
+        name: 'https://i.hizliresim.com/Mxd69A.png',
       },
       {
-        name: '#ffff99',
+        name: 'https://i.hizliresim.com/dhbnvL.png',
       },
       {
-        name: '#ff9900',
+        name: 'https://i.hizliresim.com/3g9IJY.png',
       },
       {
-        name: '#990000',
+        name: 'https://i.hizliresim.com/TLhPQI.png',
       },
       {
-        name: '#993366',
+        name: 'https://i.hizliresim.com/kag6Af.png',
       },
       {
-        name: '#660066',
+        name: 'https://i.hizliresim.com/WoeIvy.png',
       },
       {
-        name: '#9900ff',
+        name: 'https://i.hizliresim.com/3i8roY.png',
       },
       {
-        name: '#666699',
+        name: 'https://i.hizliresim.com/RJ1avH.png',
       },
       {
-        name: '#660066',
+        name: 'https://i.hizliresim.com/GV459k.png',
       },
       {
-        name: '#d6d6c2',
+        name: 'https://i.hizliresim.com/V8LVXN.png',
       },
       {
-        name: '#3333ff',
+        name: 'https://i.hizliresim.com/kgSmdJ.png',
       },
     ];
 
@@ -95,6 +95,7 @@ componentDidMount(){
       <View style={styles.container}>
         <View style={styles.header}>
 				  <Text style={styles.header_text}>CardMatchGame</Text>
+          <Text style={styles.header_text}>kullanici adi</Text>
 		  	</View>
         <View style={styles.body}>
           { 
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: '#00aaff'
+    backgroundColor: '#85929E'
   },
   row: {
     flex: 1,
@@ -258,8 +259,8 @@ const styles = StyleSheet.create({
   header: {
 		flex: 1,
 		flexDirection: 'column',
-		paddingTop: 30,
-		paddingBottom: 5,
+		paddingTop: 20,
+		paddingBottom: 25,
 	},
 
 	header_text: {

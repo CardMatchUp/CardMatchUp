@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Image } from 'react-native';
+import { StyleSheet,View, TouchableHighlight, Image } from 'react-native';
 
 export default class Card extends React.Component {
 	
@@ -9,7 +9,7 @@ export default class Card extends React.Component {
 
 	render() {
 
-		var color = 'white';
+		var color = 'https://reactnative.dev/img/tiny_logo.png';
 		
 		if(this.props.is_open){
 			color = this.props.name;
@@ -18,7 +18,7 @@ export default class Card extends React.Component {
 		return (
 			<View style={styles.card}>
 				<TouchableHighlight onPress={this.props.clickCard} activeOpacity={0.75}>					
-					<View style = {{backgroundColor: color, height:50,width:50,borderWidth:1}}/>
+					<Image style={styles.imageStyle} source={{uri: color}}/>
 				</TouchableHighlight>		
 			</View>
 		);
@@ -30,5 +30,9 @@ const styles = StyleSheet.create({
 	card: {
 		flex: 1,
 		alignItems: 'center'
+	},
+	imageStyle:{
+		width:50,
+		height:50,
 	},
 });
