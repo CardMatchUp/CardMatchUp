@@ -37,7 +37,7 @@ export default class Register extends React.Component { //App
   .doc(data.user.uid)
   .set({
     name: this.state.name,
-    value:0,
+    lastscore:0,
   })
   .then((ref) => {  });
         this.props.navigation.navigate('Oyun',data.user.uid)
