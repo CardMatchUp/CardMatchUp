@@ -10,7 +10,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 export function App() {
 
   /*return  <Login />;*/
-  /*return <Register/>*/
+  /*return <Oyun/>*/
   return <Login/>
 };
 
