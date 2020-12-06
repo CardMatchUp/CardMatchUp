@@ -4,13 +4,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import Login from "./screens/Login";
 import Oyun from "./screens/Oyun";
 import Register from './screens/Register';
+import HighScore from "./screens/HighScore";
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 export function App() {
 
   /*return  <Login />;*/
-  return <Oyun/>
+  return <HighScore/>
   
 };
 
@@ -35,10 +36,14 @@ const AppNavigator = createStackNavigator({
   Oyun: {
   screen: Oyun,
   },
+  
+  HighScore: {
+  screen: HighScore,
+  },
 },
 
 {
-  initialRouteName: 'Login',
+  initialRouteName: 'HighScore',
 });
 
 export default createAppContainer(AppNavigator);
