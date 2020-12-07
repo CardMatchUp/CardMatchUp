@@ -9,7 +9,7 @@ export default class Card extends React.Component {
 
 	render() {
 
-		var color = 'https://reactnative.dev/img/tiny_logo.png';
+		var color = 'https://i.hizliresim.com/IWp698.png';
 		
 		if(this.props.is_open){
 			color = this.props.name;

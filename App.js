@@ -44,6 +44,9 @@ const AppNavigator = createStackNavigator({
   
   
   Oyun: {
+    navigationOptions: {
+      headerShown: false,
+    },
   screen: Oyun,
   },
   

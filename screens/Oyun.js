@@ -1,11 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Button, Image, Text } from 'react-native';
-
-import Score from '../components/Score';
+import { StyleSheet, View, Button, Image, Text, StatusBar, TouchableOpacity } from 'react-native';
 import Card from '../components/Card';
 import firebase from '../Firebase';
-
-
 
 Array.prototype.shuffle = function() {
   var i = this.length, j, temp;
@@ -24,8 +20,8 @@ export default class Oyun extends React.Component {
 
   constructor(props) {
     super(props);
-    this.CardGetir = this.CardGetir.bind(this);
-    this.sifirla = this.sifirla.bind(this);
+    this.getCard = this.getCard.bind(this);
+    this.reset = this.reset.bind(this);
 
 
     let cards = [
@@ -80,8 +76,8 @@ export default class Oyun extends React.Component {
 
     this.cards = this.cards.shuffle(); 
     this.state = {
-      secimler: [],
-      ciftler: [],
+      selected: [],
+      matched: [],
       score: 0,
       cards: this.cards,
       userName:"",
@@ -90,7 +86,7 @@ export default class Oyun extends React.Component {
   }
 
 componentDidMount(){
-  this.props.navigation.navigate('HighScore');
+  //this.props.navigation.navigate('HighScore');
   firebase.firestore().collection("Users").doc(this.props.navigation.state.params)
     .get()
   .then(querySnapshot => {
@@ -114,33 +110,42 @@ IsGameEnd(score)
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="black"/>
         <View style={styles.header}>
-				  <Text style={styles.header_text}>CardMatchGame</Text>
-          <Text style={styles.header_text}>{this.state.userName}</Text>
-          <Text style={styles.header_text}>Son Skor: {this.state.lastScore}</Text>
+				  <Text style={styles.header_text}>CardMatchUp</Text>
 		  	</View>
         <View style={styles.body}>
           { 
-            this.renderRows.call(this) 
+            this.getRows.call(this) 
           }
-          
         </View>
+
+        <View style={styles.maxScView}>
+            <Text style={styles.maxSc}>{this.state.userName} Max Score: {this.state.lastScore}</Text>
+          </View>
+
+        <View style={styles.xxx}>
+          <Text style={styles.inf}>Her dogru eslesme +10 puan kazandırır!</Text>
+          <Text style={styles.inf}> Her yanlis eslesme -1 puandir.</Text>
+          <Text style={styles.score}>Score: {this.state.score}</Text>
+        </View>
+        <View style={styles.buttons}>
         
-          <Score score={this.state.score} />
-        
-        
-        
-        <View style={{backgroundColor:'#669999'}}>
-        <Button
-          onPress={this.sifirla}
-          title="Sifirla"
-          color= 'black'
-        />
+
+        <TouchableOpacity style={styles.RankingBtn} onPress={() => this.props.navigation.navigate('HighScore')}>
+          <Text style={{color:'white',fontWeight:'bold',}} >
+            Score Ranking
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.RankingBtn} onPress={this.reset}>
+          <Text style={{color:'white',fontWeight:'bold',}} >
+            Reset
+          </Text>
+        </TouchableOpacity>
 
         </View>
        
-      
-        
         
       </View>
       
@@ -148,7 +153,7 @@ IsGameEnd(score)
   }
 
 
-  sifirla() {
+  reset() {
     let cards = this.cards.map((obj) => {
       obj.is_open = false;
       return obj;
@@ -157,45 +162,44 @@ IsGameEnd(score)
     cards = cards.shuffle();
 
     this.setState({
-      secimler: [],
-      ciftler: [],
+      selected: [],
+      matched: [],
       cards: cards,
       score: 0
     });
   }
 
 
-  renderRows() {
-   
-    var cardd = this.satirCard(this.state.cards);
+  getRows() {
+    var cardd = this.rowCard(this.state.cards);
     return cardd.map((cards, index) => {
       return (
         <View key={index} style={styles.row}>
-          { this.CardGetir(cards) }
+          { this.getCard(cards) }
         </View>
       );
     });
    
   }
 
-  satirCard(cards) {
-    let satircard = [];
-    let cardlar = [];
-    let count = 0;
-    cards.forEach((item) => {
+  rowCard(cards) {
+    var rowCard = [];
+    var cardlar = [];
+    var count = 0;
+    cards.forEach((x) => {
       count += 1;
-      cardlar.push(item);
+      cardlar.push(x);
       if(count == 4){
-        satircard.push(cardlar)
+        rowCard.push(cardlar)
         count = 0;
         cardlar = [];
       }
     });
-    return satircard;
+    return rowCard;
   }
 
 
-  CardGetir(cards) {
+  getCard(cards) {
     return cards.map((card, index) => {
       return (
         <Card 
@@ -210,8 +214,8 @@ IsGameEnd(score)
 
 
   clickCard(id) {
-    var ciftler = this.state.ciftler;
-    var secimler = this.state.secimler;
+    var matched = this.state.matched;
+    var selected = this.state.selected;
     let score = this.state.score;
 
     let index = this.state.cards.findIndex((card) => {
@@ -220,28 +224,28 @@ IsGameEnd(score)
 
     let cards = this.state.cards;
     
-    if(cards[index].is_open == false && ciftler.indexOf(cards[index].name) === -1){
+    if(cards[index].is_open == false && matched.indexOf(cards[index].name) === -1){
 
       cards[index].is_open = true;
       
-      secimler.push({ 
+      selected.push({ 
         index: index,
         name: cards[index].name
       });
 
-      if(secimler.length == 2){
-        if(secimler[0].name == secimler[1].name){
+      if(selected.length == 2){
+        if(selected[0].name == selected[1].name){
           score += 10;
-          ciftler.push(cards[index].name);
+          matched.push(cards[index].name);
 
-          ciftler.length == 12? (this.IsGameEnd(score)):("");
+          matched.length == 12? (this.IsGameEnd(score)):("");
 
 
         }else{
 
           score -=1;
          
-          cards[secimler[0].index].is_open = false;
+          cards[selected[0].index].is_open = false;
 
           setTimeout(() => {
             cards[index].is_open = false;
@@ -251,25 +255,24 @@ IsGameEnd(score)
           }, 500);
         }
 
-        secimler = [];
+        selected = [];
       }
 
       this.setState({
         score: score,
         cards: cards,
-        secimler: secimler
+        selected: selected
       });
 
     }
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: '#85929E'
+    backgroundColor: '#2C5782'
   },
   row: {
     flex: 1,
@@ -278,23 +281,79 @@ const styles = StyleSheet.create({
   body: {
     flex: 18,
     justifyContent: 'space-between',
-    paddingTop: 20,
+    paddingTop: 10,
     paddingHorizontal:20,
+    
     
   },
   header: {
 		flex: 1,
 		flexDirection: 'column',
-		paddingTop: 20,
 		paddingBottom: 25,
 	},
 
 	header_text: {
-		fontWeight: 'bold',
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+		fontSize: 33,
+    textAlign: 'center',
+    color:'#fb5b5a',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 10},
+    textShadowRadius: 10
+  },
+  
+  maxSc:{
+    fontWeight: 'bold',
+    fontStyle: 'italic',
 		fontSize: 23,
     textAlign: 'center',
+    color:'#fb5b5a',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 5
-	}
+    textShadowOffset: {width: -1, height: 10},
+    textShadowRadius: 10
+  },
+
+
+  maxScView:{
+    flex: 1,
+    flexDirection: 'column',
+    alignItems:'center',
+		paddingBottom: 25,
+  },
+
+
+  xxx: {
+		flex: 2,
+		alignItems: 'center',
+		paddingBottom: 6,
+		paddingTop:4,
+	},
+	score: {
+		fontSize: 40,
+		fontWeight: 'bold',
+		paddingTop:10,
+		paddingBottom:2
+	},
+
+	inf:{
+		fontSize:15,
+		fontWeight:'bold',
+		color:'#fb5b5a'
+  },
+  
+  buttons:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop:65
+  },
+  RankingBtn:{
+    width:"40%",
+    backgroundColor:"#1A344E",
+    borderRadius:22,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    
+  }
 });
