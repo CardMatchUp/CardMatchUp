@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import firebase from '../Firebase';
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
@@ -64,6 +64,7 @@ export default class Register extends React.Component { //App
   render(){
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="black"/>
         <Text style={styles.logo}>CardMatchUp</Text>
 
         <View style={styles.inputView} >
@@ -104,15 +105,19 @@ export default class Register extends React.Component { //App
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#003f5c',
+    backgroundColor: '#1A344E',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo:{
+    fontStyle: 'italic',
     fontWeight:"bold",
-    fontSize:50,
+    fontSize:60,
     color:"#fb5b5a",
-    marginBottom:40
+    marginBottom:110,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 10},
+    textShadowRadius: 10
   },
   inputView:{
     width:"80%",
@@ -134,7 +139,7 @@ const styles = StyleSheet.create({
     height:50,
     alignItems:"center",
     justifyContent:"center",
-    marginTop:40,
+    marginTop:50,
     marginBottom:10
   },
   registerText:{

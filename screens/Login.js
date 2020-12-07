@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import firebase from '../Firebase';
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
@@ -48,6 +48,7 @@ export default class Login extends React.Component { //App
   render(){
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="black"/>
         <Text style={styles.logo}>CardMatchUp</Text>
         <View style={styles.inputView} >
           <TextInput  
@@ -68,9 +69,14 @@ export default class Login extends React.Component { //App
         <TouchableOpacity onPress={() => this.Login(this.state.email, this.state.password)} style={styles.loginBtn}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.loginText} onPress={() => this.props.navigation.navigate('Register')}>
+        <TouchableOpacity style={styles.SignUpBtn}  onPress={() => this.props.navigation.navigate('Register')}>
+          <Text style={styles.loginText}>
             Sign Up
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.RankingBtn} onPress={() => this.props.navigation.navigate('HighScore')}>
+          <Text style={{color:'black',fontWeight:'bold',}} >
+            Score Ranking
           </Text>
         </TouchableOpacity>
 
@@ -83,15 +89,20 @@ export default class Login extends React.Component { //App
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#003f5c',
+   // backgroundColor: '#003f5c',
+    backgroundColor: '#1A344E',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo:{
+    fontStyle: 'italic',
     fontWeight:"bold",
-    fontSize:50,
+    fontSize:60,
     color:"#fb5b5a",
-    marginBottom:40
+    marginBottom:70,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 10},
+    textShadowRadius: 10
   },
   inputView:{
     width:"80%",
@@ -113,10 +124,31 @@ const styles = StyleSheet.create({
     height:50,
     alignItems:"center",
     justifyContent:"center",
-    marginTop:40,
-    marginBottom:10
+    marginTop:70,
+    marginBottom:10,
+    
   },
   loginText:{
-    color:"white"
+    color:"white",
+  },
+  SignUpBtn:{
+    width:"80%",
+    backgroundColor:"#669999",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:3
+  },
+
+  RankingBtn:{
+    width:"50%",
+    backgroundColor:"#0EADF3",
+    borderRadius:22,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:65
+
   }
 });

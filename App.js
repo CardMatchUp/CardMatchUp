@@ -25,13 +25,23 @@ const styles = StyleSheet.create({
 });
 
 const AppNavigator = createStackNavigator({
+
+  
+
   Register: {
   screen: Register,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
 
   Login: {
+    navigationOptions: {
+      headerShown: false,
+    },
   screen: Login,
   },
+  
   
   Oyun: {
   screen: Oyun,
