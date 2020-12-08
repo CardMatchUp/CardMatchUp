@@ -1,7 +1,9 @@
 import React from 'react';
 import firebase from '../Firebase';
 import Leaderboard from 'react-native-leaderboard';
-import { Alert, View,Text, Image } from 'react-native';
+import { Alert, View,Text, Image, Button, TouchableOpacity} from 'react-native';
+
+
 const ordinal_suffix_of = (i) => {
     var j = i % 10,
         k = i % 100;
@@ -32,7 +34,7 @@ alert = (title, body) => {
   });
 };
 sort = (data) => {
-  console.log("DATAAAAAAAA",data)
+  //console.log("DATAAAAAAAA",data)
   const sorted = data && data.sort((item1, item2) => {
       return item2.highScore - item1.highScore;
   })
@@ -45,7 +47,7 @@ sort = (data) => {
 componentDidMount(){
 
   const user = firebase.auth().currentUser;
-console.log("AUTH",user.uid)
+//console.log("AUTH",user.uid)
 
 firebase.firestore().collection("Users").doc(firebase.auth().currentUser.uid)
 .get()
@@ -81,23 +83,49 @@ this.setState({
   });
 }
 
+//<Image style={{width:30,height:30}} source={{uri: 'https://i.hizliresim.com/Xmlc2X.png'}}/>
+
 renderHeader() {
   return (
       <View colors={[, '#1da2c6', '#1695b7']}
-          style={{ backgroundColor: '#119abf', padding: 15, paddingTop: 35, alignItems: 'center' }}>
-          <Text style={{ fontSize: 25, color: 'white', }}>Leaderboard</Text>
+          style={{ backgroundColor: '#1A344E',}}>
+            <View>
+              <TouchableOpacity style={{ height: 35, width:35,paddingLeft:10, paddingTop:10 }} onPress={() => this.props.navigation.goBack()}>
+                <Image style={{width:35,height:35}} source={{uri: 'https://i.hizliresim.com/1CcP8X.png'}}/>
+              </TouchableOpacity> 
+            </View>
+
+            <View style={{
+              flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop:6,}}>
+              <Text style={{
+              fontSize: 35, fontStyle: 'italic',
+              fontWeight:"bold",
+              color:"#fb5b5a",
+              marginBottom:6,
+              textShadowColor: 'rgba(0, 0, 0, 0.75)',
+              textShadowOffset: {width: -1, height: 10},
+              textShadowRadius: 10}}>
+                  Leaderboard</Text>
+              <Text style={{ fontSize: 25, color: 'white', }}>{this.state.myUserName}</Text>
+
+
+            </View>
+          
           <View style={{
               flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-              marginBottom: 15, marginTop: 20
+              marginBottom: 15, marginTop: 15
           }}>
-              <Text style={{ color: 'white', fontSize: 25, flex: 1, textAlign: 'right', marginRight: 40 }}>
+            <View style={{flex:3, justifyContent:'space-around',alignItems:'center',flexDirection:'row'}}>
+              <Text style={{ color: 'white', fontSize: 25,}}>
                   {ordinal_suffix_of(this.state.userRank)}
               </Text>
-              <Image style={{ flex: .66, height: 60, width: 60, borderRadius: 60 / 2 }}
-                  source={{ uri: 'http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-braindead-zombie.png' }} />
-              <Text style={{ color: 'white', fontSize: 25, flex: 1, marginLeft: 40 }}>
-                  {this.state.myLastScore}pts
+              
+              <Text style={{ color: 'white', fontSize: 25,}}>
+                  {this.state.myLastScore} points
               </Text>
+
+            </View>
+              
           </View>
           {/* <ButtonGroup
               onPress={(x) => { this.setState({ filter: x }) }}
@@ -118,8 +146,8 @@ renderHeader() {
 
       {this.renderHeader()}
         <Leaderboard 
-        onRowPress={(item, index) => {
-          this.alert(item.name + " clicked", item.score + " points, wow!")}}
+        /*onRowPress={(item, index) => {
+          this.alert(item.name + " clicked", item.score + " points, wow!")}}*/
         data={this.state.data} 
         sortBy='highScore' 
         evenRowColor= "#edfcf9"

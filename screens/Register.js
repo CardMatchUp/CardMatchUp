@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, StatusBar } from '
 import firebase from '../Firebase';
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
+
+
+
 export default class Register extends React.Component { //App
 
   constructor(){
@@ -92,9 +95,24 @@ export default class Register extends React.Component { //App
             onChangeText={text => this.setState({password:text})}/>
         </View>
 
-        <TouchableOpacity onPress={() => this.Register(this.state.email, this.state.password)} style={styles.loginBtn}>
+        <TouchableOpacity onPress={() => this.Register(this.state.email, this.state.password)} style={styles.registerBtn}>
           <Text style={styles.registerText}>Register</Text>
         </TouchableOpacity>
+
+
+        <View style={{flexDirection:'row',alignItems:'space-around',marginTop:10}}>
+          <Text style={{color:'white'}}>Already have an account?   </Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+            <Text style={{color:'#fb5b5a',fontWeight:'bold',fontSize:15}}>Login here</Text>
+          </TouchableOpacity>
+
+
+        </View>
+
+        
+
+
+
         <FlashMessage position="bottom" />
 
       </View>
@@ -132,7 +150,7 @@ const styles = StyleSheet.create({
     height:50,
     color:"white"
   },
-  loginBtn:{
+  registerBtn:{
     width:"80%",
     backgroundColor:"#fb5b5a",
     borderRadius:25,
@@ -144,5 +162,11 @@ const styles = StyleSheet.create({
   },
   registerText:{
     color:"white"
-  }
+  },
+
+
+
+
+
+
 });

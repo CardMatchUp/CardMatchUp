@@ -238,7 +238,16 @@ IsGameEnd(score)
           score += 10;
           matched.push(cards[index].name);
 
-          matched.length == 12? (this.IsGameEnd(score)):("");
+          //matched.length == 12? (this.IsGameEnd(score)):("");
+          
+          if (matched.length == 12) {
+            if (score > this.state.lastScore) {
+              (this.IsGameEnd(score))
+            }
+            else
+              (this.IsGameEnd(this.state.lastScore))
+          }
+          
 
 
         }else{
@@ -345,7 +354,8 @@ const styles = StyleSheet.create({
   buttons:{
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop:65
+    marginTop:65,
+    paddingBottom:5
   },
   RankingBtn:{
     width:"40%",

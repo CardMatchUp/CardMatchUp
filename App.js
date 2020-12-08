@@ -51,6 +51,9 @@ const AppNavigator = createStackNavigator({
   },
   
   HighScore: {
+    navigationOptions: {
+      headerShown: false,
+    },
   screen: HighScore,
   },
 },
