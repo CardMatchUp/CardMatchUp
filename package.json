@@ -14,7 +14,7 @@
     "@react-native-firebase/iid": "^10.1.1",
     "@react-navigation/native": "^3.8.3",
     "@react-navigation/stack": "^5.12.8",
-    "expo": "~39.0.2",
+    "expo": "^39.0.5",
     "expo-status-bar": "~1.0.2",
     "firebase": "^8.1.2",
     "prop-types": "^15.7.2",
