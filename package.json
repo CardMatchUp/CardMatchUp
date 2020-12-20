@@ -30,7 +30,8 @@
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.3",
     "react-navigation-native": "0.0.0",
-    "react-navigation-stack": "^2.10.2"
+    "react-navigation-stack": "^2.10.2",
+    "require-context": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

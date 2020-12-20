@@ -48,22 +48,8 @@ export default class Oyun extends React.Component {
       },
       {
         name: 'https://i.hizliresim.com/3i8roY.png',
-      },
-      {
-        name: 'https://i.hizliresim.com/RJ1avH.png',
-      },
-      {
-        name: 'https://i.hizliresim.com/GV459k.png',
-      },
-      {
-        name: 'https://i.hizliresim.com/V8LVXN.png',
-      },
-      {
-        name: 'https://i.hizliresim.com/kgSmdJ.png',
-      },
+      }
     ];
-
-
 
     var clone = JSON.parse(JSON.stringify(cards));
 
@@ -87,23 +73,38 @@ export default class Oyun extends React.Component {
 
 componentDidMount(){
   //this.props.navigation.navigate('HighScore');
-  firebase.firestore().collection("Users").doc(this.props.navigation.state.params)
-    .get()
-  .then(querySnapshot => {
-    this.setState({
-      userName:querySnapshot.data().name,
-      lastScore:querySnapshot.data().lastscore
-    })
-  });
+  try {
+    if(this.props.navigation.state.params){
+      firebase.firestore().collection("Users").doc(this.props.navigation.state.params)
+      .get()
+    .then(querySnapshot => {
+      this.setState({
+        userName:querySnapshot.data().name,
+        lastScore:querySnapshot.data().lastscore
+      })
+    });
+    }
+  } catch (error) {
+    
+  }
+
+
 }
 
-IsGameEnd(score)
-{
-  firebase.firestore().collection('Users').doc(this.props.navigation.state.params)
-  .update({
-    lastscore:score
-   })
-   this.componentDidMount();
+IsGameEnd= (score) => {
+  try {
+    if(this.props.navigation.state.params){
+      firebase.firestore().collection('Users').doc(this.props.navigation.state.params)
+      .update({
+        lastscore:score
+       })
+       this.componentDidMount();
+    }
+  } catch (error) {
+    
+  }
+
+ 
 }
 
 
@@ -240,7 +241,7 @@ IsGameEnd(score)
 
           //matched.length == 12? (this.IsGameEnd(score)):("");
           
-          if (matched.length == 12) {
+          if (matched.length === 8) {
             if (score > this.state.lastScore) {
               (this.IsGameEnd(score))
             }

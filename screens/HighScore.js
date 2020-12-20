@@ -45,10 +45,8 @@ sort = (data) => {
   return sorted;
 }
 componentDidMount(){
-
+try {
   const user = firebase.auth().currentUser;
-//console.log("AUTH",user.uid)
-
 firebase.firestore().collection("Users").doc(firebase.auth().currentUser.uid)
 .get()
 .then(querySnapshot => {
@@ -57,8 +55,6 @@ this.setState({
   myLastScore:querySnapshot.data().lastscore
 })
 });
-
-
   firebase.firestore()
   .collection('Users')
   .get()
@@ -81,6 +77,10 @@ this.setState({
     this.sort(this.state.data)
 
   });
+} catch (error) {
+  
+}
+  
 }
 
 //<Image style={{width:30,height:30}} source={{uri: 'https://i.hizliresim.com/Xmlc2X.png'}}/>
